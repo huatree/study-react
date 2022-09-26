@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.0/umd/react.production.min.js"
+      integrity="sha512-OFVc61Km1gGsigY9uPjn6+tsYr7gwf5pu4s5fMfPnNl7nqDxNbdePV+w40URGH7AoVE04uLJCdUKI4/0whXnKQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.0/umd/react-dom.production.min.js"
+      integrity="sha512-+GYArCsX3kM7BMeYErBugM5xDCNnkjR/Fp7Qn4FpXhk23XFNEcg9NBxzOgjeBHW88Y1uzjN7UkKMsX8fLaJ9pQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script type="text/babel">
+      const { useState } = React
+      function PersonalInfoComponent() {
+        // 集中定义变量
+        let name, age, career, setName, setCareer
+        // 获取姓名状态
+        ;[name, setName] = useState('修言')
+        // 获取年龄状态
+        ;[age] = useState('99')
+        // 获取职业状态
+        ;[career, setCareer] = useState('我是一个前端，爱吃小熊饼干')
+        // 输出职业信息
+        console.log('career', career)
+        // 编写 UI 逻辑
+        return (
+          <div className="personalInfo">
+            <p>姓名：{name}</p>
+            <p>年龄：{age}</p>
+            <p>职业：{career}</p>
+            <button
+              onClick={() => {
+                setName('秀妍')
+              }}
+            >
+              修改姓名
+            </button>
+          </div>
+        )
+      }
+      ReactDOM.render(<PersonalInfoComponent />, document.getElementById('root'))
+    </script>
+  </body>
+</html>

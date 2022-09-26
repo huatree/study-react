@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.0/umd/react.production.min.js"
+      integrity="sha512-OFVc61Km1gGsigY9uPjn6+tsYr7gwf5pu4s5fMfPnNl7nqDxNbdePV+w40URGH7AoVE04uLJCdUKI4/0whXnKQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.0/umd/react-dom.production.min.js"
+      integrity="sha512-+GYArCsX3kM7BMeYErBugM5xDCNnkjR/Fp7Qn4FpXhk23XFNEcg9NBxzOgjeBHW88Y1uzjN7UkKMsX8fLaJ9pQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script type="text/babel">
+      const { useState } = React
+      // isMounted 用于记录是否已挂载（是否是首次渲染）
+      let isMounted = false
+      function PersonalInfoComponent() {
+        // 定义变量的逻辑不变
+        let name, age, career, setName, setCareer
+        // 这里追加对 isMounted 的输出，这是一个 debug 性质的操作
+        console.log('isMounted is', isMounted)
+        // 这里追加 if 逻辑：只有在首次渲染（组件还未挂载）时，才获取 name、age 两个状态
+        if (!isMounted) {
+          // eslint-disable-next-line
+          ;[name, setName] = useState('修言')
+          // eslint-disable-next-line
+          ;[age] = useState('99')
+          ;<span class="hljs-comment">// if 内部的逻辑执行一次后，就将 isMounted 置为 true（说明已挂载，后续都不再是首次渲染了）</span>
+          isMounted = <span class="hljs-literal">true</span>
+        }
+        // 对职业信息的获取逻辑不变
+        ;[career, setCareer] = useState('我是一个前端，爱吃小熊饼干')
+        // 这里追加对 career 的输出，这也是一个 debug 性质的操作
+        console.log('career', career)
+        // UI 逻辑的改动在于，name和age成了可选的展示项，若值为空，则不展示
+        return (
+          <div className="personalInfo">
+            {name ? <p>姓名：{name}</p> : null}
+            {age ? <p>年龄：{age}</p> : null}
+            <p>职业：{career}</p>
+            <button
+              onClick={() => {
+                setName('秀妍')
+              }}
+            >
+              修改姓名
+            </button>
+          </div>
+        )
+      }
+      ReactDOM.render(<PersonalInfoComponent />, document.getElementById('root'))
+    </script>
+  </body>
+</html>
